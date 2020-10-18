@@ -31,6 +31,9 @@ class MyApp extends StatelessWidget {
       title: "Fluttergram",
       debugShowCheckedModeBanner: false,
       home: _getScreen(),
+      theme: ThemeData(
+          primaryIconTheme:
+              Theme.of(context).primaryIconTheme.copyWith(color: Colors.black)),
       routes: {
         LoginScreen.id: (context) => LoginScreen(),
         SignupScreen.id: (context) => SignupScreen(),

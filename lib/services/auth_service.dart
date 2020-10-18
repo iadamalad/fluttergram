@@ -19,8 +19,8 @@ class AuthService {
             .collection("users")
             .document(signedInUser.uid)
             .setData({'name': name, 'email': email, 'profile-pic': ""});
-        Navigator.pushReplacementNamed(context, FeedScreen.id);
-      } else {}
+        Navigator.pop(context);
+      }
     } catch (e) {
       print(e);
     }

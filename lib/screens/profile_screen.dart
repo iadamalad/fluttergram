@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:fluttergram/screens/edit_profile_screen.dart';
 import 'package:fluttergram/utilities/constants.dart';
 import 'package:fluttergram/models/user_model.dart';
 
@@ -87,9 +88,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           Container(
                             width: 200,
                             child: FlatButton(
-                                onPressed: () {
-                                  print("Edit Profile");
-                                },
+                                onPressed: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (_) => EditProfileScreen(
+                                          user: user,
+                                        ),
+                                      ),
+                                    ).then((value) {
+                                      setState(() {});
+                                    }),
                                 textColor: Colors.white,
                                 color: Colors.blue,
                                 child: Text(
