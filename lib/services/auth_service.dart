@@ -1,8 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:fluttergram/models/user_data.dart';
 import 'package:fluttergram/screens/feed_screen.dart';
 import 'package:fluttergram/screens/login_screen.dart';
+import 'package:provider/provider.dart';
 
 class AuthService {
   static final _auth = FirebaseAuth.instance;
@@ -19,6 +21,7 @@ class AuthService {
             .collection("users")
             .document(signedInUser.uid)
             .setData({'name': name, 'email': email, 'profile-pic': ""});
+        Provider.of<UserData>(context).currentUserId = signedInUser.uid;
         Navigator.pop(context);
       }
     } catch (e) {

@@ -12,6 +12,14 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.blue,
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        title: Text(
+          "Instagram",
+          style: TextStyle(
+              fontFamily: "Billabong", color: Colors.black, fontSize: 35),
+        ),
+      ),
       body: Center(
         child: FlatButton(
           onPressed: () => AuthService.signOutUser(context),
