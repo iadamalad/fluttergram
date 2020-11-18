@@ -37,6 +37,7 @@ class _HomeScreenState extends State<HomeScreen> {
           //we have to pass in the UserId into the ProfileScreen because
           //we might want to render other Profiles from Search
           ProfileScreen(
+            currentUserId: Provider.of<UserData>(context).currentUserId,
             userId: Provider.of<UserData>(context).currentUserId,
           ),
         ],

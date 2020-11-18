@@ -1,9 +1,14 @@
 import 'dart:io';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttergram/models/user_data.dart';
+import 'package:fluttergram/services/database_service.dart';
 import 'package:fluttergram/services/storage_service.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:fluttergram/models/post_model.dart';
+import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
   @override
@@ -95,10 +100,19 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
         _isLoading = true;
       });
       //create post
-      String imageUrl = await StorageService.uploadPost(_image);
-      Post post = Post();
 
-      //reset data
+      String imageUrl = await StorageService.uploadPost(_image);
+
+      Post post = Post(
+        imageUrl: imageUrl,
+        caption: _caption,
+        likes: {},
+        authorId: Provider.of<UserData>(context).currentUserId,
+        timestamp: Timestamp.fromDate(DateTime.now()),
+      );
+
+      DatabaseService.createPost(post);
+
       _catpionController.clear();
       setState(() {
         _caption = "";
@@ -122,7 +136,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
           actions: [
             IconButton(
               icon: Icon(Icons.add),
-              onPressed: () => _submit,
+              onPressed: _submit,
             )
           ],
         ),
@@ -133,6 +147,15 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
               height: height,
               child: Column(
                 children: <Widget>[
+                  _isLoading
+                      ? Padding(
+                          padding: EdgeInsets.only(bottom: 10.0),
+                          child: LinearProgressIndicator(
+                            backgroundColor: Colors.blue[200],
+                            valueColor: AlwaysStoppedAnimation(Colors.blue),
+                          ),
+                        )
+                      : SizedBox.shrink(),
                   GestureDetector(
                     onTap: _showSelectImageDialog,
                     child: Container(
