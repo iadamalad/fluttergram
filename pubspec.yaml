@@ -38,8 +38,10 @@ dependencies:
   flutter_image_compress: ^0.6.3
   path_provider: ^1.2.0
   uuid: ^2.0.2
-  provider: ^3.1.0+1
+  provider: ^3.2.0
   image_cropper: ^1.1.0
+  animator: ^2.0.2
+  intl: ^0.16.1
 
 dev_dependencies:
   flutter_test:

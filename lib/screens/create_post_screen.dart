@@ -1,13 +1,14 @@
 import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttergram/models/post_model.dart';
 import 'package:fluttergram/models/user_data.dart';
 import 'package:fluttergram/services/database_service.dart';
 import 'package:fluttergram/services/storage_service.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:fluttergram/models/post_model.dart';
 import 'package:provider/provider.dart';
 
 class CreatePostScreen extends StatefulWidget {
@@ -106,7 +107,7 @@ class _CreatePostScreenState extends State<CreatePostScreen> {
       Post post = Post(
         imageUrl: imageUrl,
         caption: _caption,
-        likes: {},
+        likeCount: 0,
         authorId: Provider.of<UserData>(context).currentUserId,
         timestamp: Timestamp.fromDate(DateTime.now()),
       );

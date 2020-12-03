@@ -69,3 +69,19 @@ exports.onUploadPost = functions.firestore
         .set(snapshot.data());
     });
   });
+
+exports.onUpdatePost = functions.firestore.document('/posts/{userId}/userPosts/{postId}').onUpdate(async(snapshot, context) => {
+   const userId = context.params.userId;
+   const postId = context.params.postId;
+   const newPostData = snapshot.after.data(); //gives us updated post data
+   console.log(newPostData);
+   const userFollowersRef = admin.firestore().collection("followers").doc(userId).collection("userFollowers");
+   const userFollowersSnapshot = await userFollowersRef.get();
+   userFollowersSnapshot.forEach(async userDoc => {
+       const postRef = admin.firestore().collection('feeds').doc(userDoc.id).collection('userFeed');
+       const postDoc = await postRef.doc(postId).get();
+       if(postDoc.exists){
+           postDoc.ref.update(newPostData);
+       }
+   });
+});

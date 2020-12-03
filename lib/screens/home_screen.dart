@@ -30,10 +30,12 @@ class _HomeScreenState extends State<HomeScreen> {
       body: PageView(
         controller: _pageController,
         children: [
-          FeedScreen(currentUserId: Provider.of<UserData>(context).currentUserId),
+          FeedScreen(
+              currentUserId: Provider.of<UserData>(context).currentUserId),
           SearchScreen(),
           CreatePostScreen(),
-          ActivityScreen(),
+          ActivityScreen(
+              currentUserId: Provider.of<UserData>(context).currentUserId),
           //we have to pass in the UserId into the ProfileScreen because
           //we might want to render other Profiles from Search
           ProfileScreen(
